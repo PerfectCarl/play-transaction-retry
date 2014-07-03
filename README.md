@@ -78,7 +78,7 @@ transaction-retry.max=5
 ```
 The *default value* is 3.
 
-If `transaction-retry.max` is set to 0, the module will repost the request till it succeeds (ie, till the exception disappears). This may lead to infinite loop **damaging your server performance**.
+If `transaction-retry.max` is set to 0, the module will repost the request till it succeeds (ie, till the exception disappears). This may lead to infinite loops **damaging your server performance**.
 
 How to build
 ============
