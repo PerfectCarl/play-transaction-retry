@@ -38,9 +38,9 @@ y restarting transaction
         at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1064)
         ... 18 more
 ```
-This is particularly helpful if you are using a heavy duty database that have row-level locking (such as Mysql's INNODB).
+This module particularly helpful if you are using a heavy duty database that have **row-level locking** (such as Mysql's `INNODB`).
 
-The module intercepts **locking related exceptions** and retries to process the request a certain number of time to give the database the time to resolve the locking issues.
+The module intercepts **locking related exceptions** and retries to process the request a *certain number of times* to give the database the time to resolve the locking issues.
 
 Locking related exceptions are exceptions that are of the following types (or have a `cause` of the following types): 
   - `javax.persistence.OptimisticLockException`
