@@ -8,11 +8,10 @@ How to use
 
 Add the following to your `dependencies.yml`
 
-```
-# Application dependencies
-
+``` yaml
 require:
-    - customModules -> transaction-retry 0.9
+    ...
+	- customModules -> transaction-retry 0.9
     
 repositories:
     - githubModules:
