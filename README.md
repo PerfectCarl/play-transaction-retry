@@ -1,9 +1,44 @@
 play-transaction-retry
 ======================
 
-Play1 module to automatically retry the request if a transaction fails because of a locking issue.
+Play1 module to automatically retry the request if a transaction fails because of a locking issue solving this [kind of issues](http://stackoverflow.com/questions/17747906/getting-deadlock-found-when-trying-to-get-lock-try-restarting-transaction).
+```
+PersistenceException occured : org.hibernate.exception.LockAcquisitionException: Could not execute JDBC batch update
 
-The module intercepts locking related exceptions and retries to process the request a certain number of time to give the database the time to resolve the locking issues.
+play.exceptions.JavaExecutionException: org.hibernate.exception.LockAcquisitionException: Could not execute JDBC batch u
+pdate
+        at play.mvc.ActionInvoker.invoke(ActionInvoker.java:237)
+        at Invocation.HTTP Request(Play!)
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.LockAcquisitionException: Could not execute J
+DBC batch update
+        at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1389)
+        at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1317)
+        at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1323)
+        at org.hibernate.ejb.AbstractEntityManagerImpl.flush(AbstractEntityManagerImpl.java:965)
+        at play.db.jpa.JPABase._save(JPABase.java:41)
+        at play.db.jpa.GenericModel.save(GenericModel.java:215)
+        ... 1 more
+Caused by: org.hibernate.exception.LockAcquisitionException: Could not execute JDBC batch update
+        at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:107)
+        at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:66)
+        at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:275)
+        ... 9 more
+Caused by: java.sql.BatchUpdateException: Deadlock found when trying to get lock; try restarting transaction
+        at com.mysql.jdbc.PreparedStatement.executeBatchSerially(PreparedStatement.java:2034)
+        at com.mysql.jdbc.PreparedStatement.executeBatch(PreparedStatement.java:1468)
+        at org.hibernate.jdbc.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:70)
+        at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:268)
+        ... 15 more
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; tr
+y restarting transaction
+        at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+        at com.mysql.jdbc.Util.getInstance(Util.java:386)
+        at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1064)
+        ... 18 more
+```
+This is particularly helpful if you are using a heavy duty database that have row-level locking (such as Mysql's INNODB).
+
+The module intercepts locking **related exceptions** and retries to process the request a certain number of time to give the database the time to resolve the locking issues.
 
 Locking related exceptions are exceptions that are of the following types (or have a `cause` of the following types): 
   - `javax.persistence.OptimisticLockException`
