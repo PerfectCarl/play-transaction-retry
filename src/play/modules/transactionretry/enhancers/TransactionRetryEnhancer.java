@@ -30,7 +30,7 @@ public class TransactionRetryEnhancer extends Enhancer {
 
     public static void process(PersistenceException e) throws PersistenceException {
 
-        Logger.info("TransactionRetryEnhancer.process");
+        // Logger.info("TransactionRetryEnhancer.process");
         if (isHandled(e) || isHandled(e.getCause())) {
             long max = getMaxRetries() ;
             long retries = parseLong(Http.Request.current().args.get("transaction-retry"));
@@ -41,7 +41,8 @@ public class TransactionRetryEnhancer extends Enhancer {
                     message = e.getCause().getMessage();
                 else
                     message = e.getMessage();
-                Logger.info("TransactionRetryEnhancer.process: swallowed " + message + " (retries: " + retries + ")");
+                // Logger.info("TransactionRetryEnhancer.process: swallowed " +
+                // message + " (retries: " + retries + ")");
                 final EntityTransaction tx = JPA.em().getTransaction();
                 if (tx.isActive()) {
                     tx.setRollbackOnly();
@@ -109,7 +110,7 @@ public class TransactionRetryEnhancer extends Enhancer {
 
             // Only enhance action
             if (ctMethod.getReturnType() == CtClass.voidType) {
-                Logger.info(PLUGIN_NAME + ": enhancing method " + entityName + "." + ctMethod.getName());
+                Logger.debug(PLUGIN_NAME + ": enhancing method " + entityName + "." + ctMethod.getName());
                 ctMethod.addCatch(
                         "play.modules.transactionretry.enhancers.TransactionRetryEnhancer.process(_e);return;",
                         classPool.makeClass("javax.persistence.PersistenceException"), "_e");
