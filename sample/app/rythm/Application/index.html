@@ -1,0 +1,14 @@
+@extends(main, title:"Index")
+
+Test
+<ul>
+	<li><a href="@url(Retries.err1)">PersistenceException [not handled] (retries=4)</a></li>
+	<li><a href="@url(Retries.err2)">LockAcquisitionException (retries=4)</a></li>
+	<li><a href="@url(Retries.err3)">OptimisticLockException (retries=3)</a></li>
+	<li><a href="@url(Retries.err31)">OptimisticLockException (retries=5)</a></li>
+	<li><a href="@url(Retries.err32)">OptimisticLockException (retries=6)</a></li>
+	<li><a href="@url(Retries.err41)">StaleStateException (retries=3)</a></li>
+	<li><a href="@url(Retries.err4)">StaleStateException (retries=6)</a></li>
+	<li><a href="@url(Retries.err5)">Division by zero [not handled]</a></li>
+	<li><a href="@url(Retries.err6)">NPE [not handled]</a></li>
+</ul>

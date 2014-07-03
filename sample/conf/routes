@@ -1,0 +1,31 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Documentation
+GET     /                               Application.index
+
+# Round 8
+GET     /json                           Application.json
+GET     /db                             Application.db
+GET     /queries						Application.queries
+GET     /updates                        Application.updates  
+GET     /fortunes                       Application.fortunes  
+GET     /plaintext						Application.plaintext
+
+# Extra
+GET     /setup                          Extra.setup
+GET     /setup_tx                       Extra.setupTx
+GET     /staticplaintext				staticFile:/public/html/plaintext.html
+GET     /dbAsync						Extra.dbAsyncEachQuery
+
+GET     /err1                          Retries.err1
+GET     /err2                          Retries.err2
+GET     /err3                          Retries.err3
+GET     /err31                         Retries.err31
+GET     /err32                         Retries.err32
+GET     /err4                          Retries.err4
+GET     /err41                         Retries.err41
+GET     /err5                          Retries.err5
+GET     /err6                          Retries.err6
+

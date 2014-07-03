@@ -4,3 +4,10 @@
 /.classpath
 /.settings
 /*.pyc
+/sample/eclipse
+/sample/modules
+/sample/precompiled
+/sample/tmp
+/sample/.settings
+/sample/.classpath
+/sample/.project
