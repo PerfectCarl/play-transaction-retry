@@ -1,4 +1,4 @@
-play-transaction-retry
+transaction-retry
 ======================
 
 Play1 module to automatically retry the request if a transaction fails because of a locking issue solving this [kind of issues](http://stackoverflow.com/questions/17747906/getting-deadlock-found-when-trying-to-get-lock-try-restarting-transaction).
@@ -38,7 +38,7 @@ y restarting transaction
 ```
 This is particularly helpful if you are using a heavy duty database that have row-level locking (such as Mysql's INNODB).
 
-The module intercepts locking **related exceptions** and retries to process the request a certain number of time to give the database the time to resolve the locking issues.
+The module intercepts **locking related exceptions** and retries to process the request a certain number of time to give the database the time to resolve the locking issues.
 
 Locking related exceptions are exceptions that are of the following types (or have a `cause` of the following types): 
   - `javax.persistence.OptimisticLockException`
@@ -68,16 +68,17 @@ repositories:
 Configuration
 =============
 
-The number of retries can be set in your `application.conf`: 
+The `transaction-retry.max` sets the number of time a request is retried.
+
+It can be set in your `application.conf` : 
 ```
 # DB locking management
 # ~~~~~
 transaction-retry.max=5
 ```
-The default value is 3.
+The *default value* is 3.
 
-If `transaction-retry.max` is set to 0, the module will repost the request till it succeeds (ie, till the exception disappears).
-
+If `transaction-retry.max` is set to 0, the module will repost the request till it succeeds (ie, till the exception disappears). This may lead to infinite loop **damaging your server performance**.
 
 How to build
 ============
