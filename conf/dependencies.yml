@@ -1,0 +1,4 @@
+self: play -> transaction-retry 0.1
+
+require:
+    - play

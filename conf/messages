@@ -1,0 +1,5 @@
+# Default transaction-retry messages
+# You can specialize this file for each language.
+# For exemple, for french create a messages.fr file
+
+#transaction-retry.name=transaction-retry
