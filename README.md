@@ -1,7 +1,9 @@
 transaction-retry
 ======================
 
-Play1 module to automatically retry the request if a transaction fails because of a locking issue solving this [kind of issues](http://stackoverflow.com/questions/17747906/getting-deadlock-found-when-trying-to-get-lock-try-restarting-transaction).
+Play1 module to automatically retry the request if a transaction fails because of a locking issue.
+
+Locking issue may look [like this](http://stackoverflow.com/questions/17747906/getting-deadlock-found-when-trying-to-get-lock-try-restarting-transaction) or throw error like this: 
 ```
 PersistenceException occured : org.hibernate.exception.LockAcquisitionException: Could not execute JDBC batch update
 
@@ -50,12 +52,12 @@ This module is based on code provided on this [Stackoverflow question](http://st
 How to use
 ==========
 
-Add the following to your `dependencies.yml`
+Add the following to your `dependencies.yml` : 
 
 ``` yaml
 require:
     ...
-	- customModules -> transaction-retry 0.9
+	- customModules -> transaction-retry 0.9.1
     
 repositories:
     - githubModules:
